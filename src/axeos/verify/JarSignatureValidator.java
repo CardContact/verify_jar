@@ -85,6 +85,8 @@ public class JarSignatureValidator {
 
 	private String trustedKeystore;
 
+	private String trustedKeystorePassword;
+
 	private boolean useOCSP;
 
 	private CertPathValidator validator;
@@ -208,7 +210,11 @@ public class JarSignatureValidator {
 				System.exit(4);
 			}
 			log.fine("Using keystore: " + f);
-			keystore.load(new FileInputStream(f), null);
+			char[] password = null;
+			if (this.trustedKeystorePassword != null) {
+				password = this.trustedKeystorePassword.toCharArray();
+			}
+			keystore.load(new FileInputStream(f), password);
 		} else if (userStore.exists()) {
 			log.fine("Using keystore: " + userStore);
 			keystore.load(new FileInputStream(userStore), null);
@@ -241,6 +247,10 @@ public class JarSignatureValidator {
 
 	public void setTrustedKeystore(String trustedKeystore) {
 		this.trustedKeystore = trustedKeystore;
+	}
+
+	public void setTrustedKeystorePassword(String trustedKeystorePassword) {
+		this.trustedKeystorePassword = trustedKeystorePassword;
 	}
 
 	public void setUseOCSP(boolean useOCSP) {

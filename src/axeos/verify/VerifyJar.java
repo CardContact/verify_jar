@@ -100,6 +100,7 @@ public class VerifyJar {
 		System.err.println("   verify_jar <parameters> <jar_file>");
 		System.err.println("Parameters:");
 		System.err.println("  -trusted-keystore <file>  :  keystore with trusted CA certificates");
+		System.err.println("  -trusted-keystore-password <password>  :  password for trusted keystore");
 		System.err.println("  -ocsp  :  use OCSP for certificate verification");
 		System.err.println("  -ocsp-responder <url>  :  OCSP responder to use (default: from the signer's certificate)");
 		System.err.println("  -crl <file>  :  certificate revocation list file");
@@ -163,6 +164,8 @@ public class VerifyJar {
 				logger.setLevel(Level.ALL);
 			} else if ("-trusted-keystore".equalsIgnoreCase(par)) {
 				jv.setTrustedKeystore(args[++i]);
+			} else if ("-trusted-keystore-password".equalsIgnoreCase(par)) {
+				jv.setTrustedKeystorePassword(args[++i]);
 			} else if ("-ocsp".equalsIgnoreCase(par)) {
 				jv.setUseOCSP(true);
 			} else if ("-ocsp-responder".equalsIgnoreCase(par)) {
